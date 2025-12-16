@@ -5,7 +5,7 @@ const Leaderboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  
+
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
@@ -14,7 +14,7 @@ const Leaderboard = () => {
         const baseUrl = codespace 
           ? `https://${codespace}-8000.app.github.dev` 
           : 'http://localhost:8000';
-        const apiUrl = `${baseUrl}/api/leaderboards/`;
+        const apiUrl = `${baseUrl}/api/leaderboard/`;
         
         console.log('Leaderboard - Fetching from API:', apiUrl);
         console.log('Leaderboard - Codespace name:', codespace);
