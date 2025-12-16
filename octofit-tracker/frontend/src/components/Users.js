@@ -5,11 +5,11 @@ const Users = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // Determine the API base URL
+        // Determine the API base URL - fuzzy-space-yodel-496gxr9r5rpfqxpq-8000.app.github.dev/api/users
         const codespace = process.env.REACT_APP_CODESPACE_NAME;
         const baseUrl = codespace 
           ? `https://${codespace}-8000.app.github.dev` 

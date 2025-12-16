@@ -9,7 +9,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        // Determine the API base URL
+        // Determine the API base URL - fuzzy-space-yodel-496gxr9r5rpfqxpq-8000.app.github.dev/api/leaderboard
         const codespace = process.env.REACT_APP_CODESPACE_NAME;
         const baseUrl = codespace 
           ? `https://${codespace}-8000.app.github.dev` 
