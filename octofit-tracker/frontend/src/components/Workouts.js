@@ -5,6 +5,7 @@ const Workouts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {

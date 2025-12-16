@@ -5,6 +5,7 @@ const Leaderboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
