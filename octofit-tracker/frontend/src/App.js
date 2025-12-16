@@ -14,7 +14,8 @@ function App() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <div className="container-fluid">
             <Link className="navbar-brand" to="/">
-              <strong>🏋️ OctoFit Tracker</strong>
+              <img src="/octofitapp-small.svg" alt="OctoFit Logo" className="navbar-logo" />
+              <strong>[ OctoFit_Tracker.exe ]</strong>
             </Link>
             <button 
               className="navbar-toggler" 
@@ -51,13 +52,64 @@ function App() {
 
         <Routes>
           <Route path="/" element={
-            <div className="container mt-5 text-center">
-              <h1>Welcome to OctoFit Tracker</h1>
+            <div className="container mt-5 home-hero">
+              <h1>🏋️ Welcome to OctoFit Tracker</h1>
               <p className="lead">Track your fitness journey, compete with teams, and achieve your goals!</p>
-              <div className="mt-4">
-                <Link to="/users" className="btn btn-primary mx-2">View Users</Link>
-                <Link to="/activities" className="btn btn-success mx-2">View Activities</Link>
-                <Link to="/leaderboard" className="btn btn-warning mx-2">View Leaderboard</Link>
+              
+              <div className="row mt-5">
+                <div className="col-md-4 mb-3">
+                  <div className="card">
+                    <div className="card-body text-center">
+                      <h3>👤</h3>
+                      <h5 className="card-title">Users</h5>
+                      <p className="card-text">Manage and view all users</p>
+                      <Link to="/users" className="btn btn-info">View Users</Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4 mb-3">
+                  <div className="card">
+                    <div className="card-body text-center">
+                      <h3>👥</h3>
+                      <h5 className="card-title">Teams</h5>
+                      <p className="card-text">Explore fitness teams</p>
+                      <Link to="/teams" className="btn btn-success">View Teams</Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4 mb-3">
+                  <div className="card">
+                    <div className="card-body text-center">
+                      <h3>🏃</h3>
+                      <h5 className="card-title">Activities</h5>
+                      <p className="card-text">Track workout activities</p>
+                      <Link to="/activities" className="btn btn-primary">View Activities</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="row mt-3">
+                <div className="col-md-6 mb-3">
+                  <div className="card">
+                    <div className="card-body text-center">
+                      <h3>💪</h3>
+                      <h5 className="card-title">Workouts</h5>
+                      <p className="card-text">Get personalized suggestions</p>
+                      <Link to="/workouts" className="btn btn-danger">View Workouts</Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="card">
+                    <div className="card-body text-center">
+                      <h3>🏆</h3>
+                      <h5 className="card-title">Leaderboard</h5>
+                      <p className="card-text">See who's on top</p>
+                      <Link to="/leaderboard" className="btn btn-warning">View Leaderboard</Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           } />

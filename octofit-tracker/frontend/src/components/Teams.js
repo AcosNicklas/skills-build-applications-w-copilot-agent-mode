@@ -44,35 +44,89 @@ const Teams = () => {
   }, []);
 
   if (loading) {
-    return <div className="container mt-4"><h2>Loading teams...</h2></div>;
+    return (
+      <div className="container mt-4 loading-container">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <h2 className="mt-3">Loading teams...</h2>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="container mt-4"><h2>Error: {error}</h2></div>;
+    return (
+      <div className="container mt-4 error-container">
+        <h2 className="text-danger">⚠️ Error: {error}</h2>
+        <button className="btn btn-primary mt-3" onClick={() => window.location.reload()}>Retry</button>
+      </div>
+    );
   }
 
   return (
     <div className="container mt-4">
-      <h2>Teams</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2>👥 Teams</h2>
+        <span className="badge bg-success">{teams.length} Teams</span>
+      </div>
+      
       {teams.length === 0 ? (
-        <p>No teams found.</p>
+        <div className="alert alert-info" role="alert">
+          <h4 className="alert-heading">No Teams Found</h4>
+          <p>There are no teams to display at the moment.</p>
+        </div>
       ) : (
-        <div className="row">
-          {teams.map((team) => (
-            <div key={team.id} className="col-md-4 mb-3">
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">{team.name || 'Unnamed Team'}</h5>
-                  <p className="card-text">
-                    <strong>Description:</strong> {team.description || 'No description'}<br />
-                    <strong>Members:</strong> {team.members?.length || 0}<br />
-                    <strong>Created:</strong> {team.created_at ? new Date(team.created_at).toLocaleDateString() : 'N/A'}
-                  </p>
+        <>
+          <div className="row mb-4">
+            {teams.map((team) => (
+              <div key={team.id} className="col-md-6 col-lg-4 mb-3">
+                <div className="card h-100">
+                  <div className="card-header bg-success text-white">
+                    <h5 className="card-title mb-0 text-white">{team.name || 'Unnamed Team'}</h5>
+                  </div>
+                  <div className="card-body">
+                    <p className="card-text">{team.description || 'No description available'}</p>
+                    <hr />
+                    <div className="d-flex justify-content-between">
+                      <span className="badge bg-primary">👤 {team.members?.length || 0} Members</span>
+                      <small className="text-muted">
+                        {team.created_at ? new Date(team.created_at).toLocaleDateString() : 'N/A'}
+                      </small>
+                    </div>
+                  </div>
+                  <div className="card-footer bg-transparent">
+                    <button className="btn btn-sm btn-outline-success w-100">View Details</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          
+          <div className="table-responsive">
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Team Name</th>
+                  <th>Description</th>
+                  <th className="text-center">Members</th>
+                  <th>Created Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {teams.map((team) => (
+                  <tr key={team.id}>
+                    <td><strong>{team.name || 'Unnamed Team'}</strong></td>
+                    <td>{team.description || 'No description'}</td>
+                    <td className="text-center">
+                      <span className="badge bg-primary">{team.members?.length || 0}</span>
+                    </td>
+                    <td>{team.created_at ? new Date(team.created_at).toLocaleDateString() : 'N/A'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );

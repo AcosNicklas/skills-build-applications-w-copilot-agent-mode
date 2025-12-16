@@ -44,41 +44,69 @@ const Leaderboard = () => {
   }, []);
 
   if (loading) {
-    return <div className="container mt-4"><h2>Loading leaderboard...</h2></div>;
+    return (
+      <div className="container mt-4 loading-container">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <h2 className="mt-3">Loading leaderboard...</h2>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="container mt-4"><h2>Error: {error}</h2></div>;
+    return (
+      <div className="container mt-4 error-container">
+        <h2 className="text-danger">⚠️ Error: {error}</h2>
+        <button className="btn btn-primary mt-3" onClick={() => window.location.reload()}>Retry</button>
+      </div>
+    );
   }
 
   return (
     <div className="container mt-4">
-      <h2>Leaderboard</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2>🏆 Leaderboard</h2>
+        <span className="badge bg-warning">{leaderboard.length} Competitors</span>
+      </div>
+      
       {leaderboard.length === 0 ? (
-        <p>No leaderboard data found.</p>
+        <div className="alert alert-info" role="alert">
+          <h4 className="alert-heading">No Leaderboard Data</h4>
+          <p>There are no leaderboard entries to display at the moment.</p>
+        </div>
       ) : (
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>User</th>
-              <th>Team</th>
-              <th>Total Points</th>
-              <th>Period</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaderboard.map((entry, index) => (
-              <tr key={entry.id}>
-                <td>{index + 1}</td>
-                <td>{entry.user_name || 'Unknown'}</td>
-                <td>{entry.team_name || 'N/A'}</td>
-                <td>{entry.total_points || 0}</td>
-                <td>{entry.period || 'N/A'}</td>
+        <div className="table-responsive">
+          <table className="table table-striped table-hover align-middle">
+            <thead>
+              <tr>
+                <th className="text-center" width="10%">Rank</th>
+                <th width="30%">User</th>
+                <th width="25%">Team</th>
+                <th className="text-center" width="20%">Total Points</th>
+                <th width="15%">Period</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {leaderboard.map((entry, index) => (
+                <tr key={entry.id}>
+                  <td className="text-center">
+                    {index === 0 && <span className="badge bg-warning fs-5">🥇 {index + 1}</span>}
+                    {index === 1 && <span className="badge bg-secondary fs-5">🥈 {index + 1}</span>}
+                    {index === 2 && <span className="badge bg-danger fs-5">🥉 {index + 1}</span>}
+                    {index > 2 && <span className="badge bg-primary">{index + 1}</span>}
+                  </td>
+                  <td><strong>{entry.user_name || 'Unknown'}</strong></td>
+                  <td><span className="badge bg-info">{entry.team_name || 'No Team'}</span></td>
+                  <td className="text-center">
+                    <span className="badge bg-success fs-6">{entry.total_points || 0} pts</span>
+                  </td>
+                  <td>{entry.period || 'N/A'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

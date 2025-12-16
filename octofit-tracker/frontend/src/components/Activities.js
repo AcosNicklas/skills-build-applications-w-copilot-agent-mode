@@ -44,37 +44,97 @@ const Activities = () => {
   }, []);
 
   if (loading) {
-    return <div className="container mt-4"><h2>Loading activities...</h2></div>;
+    return (
+      <div className="container mt-4 loading-container">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <h2 className="mt-3">Loading activities...</h2>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="container mt-4"><h2>Error: {error}</h2></div>;
+    return (
+      <div className="container mt-4 error-container">
+        <h2 className="text-danger">⚠️ Error: {error}</h2>
+        <button className="btn btn-primary mt-3" onClick={() => window.location.reload()}>Retry</button>
+      </div>
+    );
   }
 
   return (
     <div className="container mt-4">
-      <h2>Activities</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2>🏃 Activities</h2>
+        <span className="badge bg-primary">{activities.length} Total</span>
+      </div>
+      
       {activities.length === 0 ? (
-        <p>No activities found.</p>
+        <div className="alert alert-info" role="alert">
+          <h4 className="alert-heading">No Activities Found</h4>
+          <p>There are no activities to display at the moment.</p>
+        </div>
       ) : (
-        <div className="row">
-          {activities.map((activity) => (
-            <div key={activity.id} className="col-md-6 mb-3">
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">{activity.user_name || 'Unknown User'}</h5>
-                  <p className="card-text">
-                    <strong>Type:</strong> {activity.activity_type || 'N/A'}<br />
-                    <strong>Duration:</strong> {activity.duration || 'N/A'} minutes<br />
-                    <strong>Distance:</strong> {activity.distance || 'N/A'} km<br />
-                    <strong>Calories:</strong> {activity.calories_burned || 'N/A'}<br />
-                    <strong>Date:</strong> {new Date(activity.date).toLocaleDateString()}
-                  </p>
+        <>
+          <div className="row mb-4">
+            {activities.map((activity) => (
+              <div key={activity.id} className="col-md-6 col-lg-4 mb-3">
+                <div className="card h-100">
+                  <div className="card-header bg-primary text-white">
+                    <h5 className="card-title mb-0 text-white">{activity.user_name || 'Unknown User'}</h5>
+                  </div>
+                  <div className="card-body">
+                    <ul className="list-unstyled">
+                      <li className="mb-2">
+                        <span className="badge bg-info">Type</span> {activity.activity_type || 'N/A'}
+                      </li>
+                      <li className="mb-2">
+                        <span className="badge bg-success">Duration</span> {activity.duration || 'N/A'} min
+                      </li>
+                      <li className="mb-2">
+                        <span className="badge bg-warning">Distance</span> {activity.distance || 'N/A'} km
+                      </li>
+                      <li className="mb-2">
+                        <span className="badge bg-danger">Calories</span> {activity.calories_burned || 'N/A'}
+                      </li>
+                      <li className="mb-2">
+                        <span className="badge bg-secondary">Date</span> {new Date(activity.date).toLocaleDateString()}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          
+          <div className="table-responsive">
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Type</th>
+                  <th>Duration (min)</th>
+                  <th>Distance (km)</th>
+                  <th>Calories</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {activities.map((activity) => (
+                  <tr key={activity.id}>
+                    <td><strong>{activity.user_name || 'Unknown'}</strong></td>
+                    <td><span className="badge bg-info">{activity.activity_type || 'N/A'}</span></td>
+                    <td>{activity.duration || 'N/A'}</td>
+                    <td>{activity.distance || 'N/A'}</td>
+                    <td>{activity.calories_burned || 'N/A'}</td>
+                    <td>{new Date(activity.date).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );
