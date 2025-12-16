@@ -13,6 +13,7 @@ else:
     base_url = "http://localhost:8000"
     print("Testing locally")
 
+
 print(f"Base URL: {base_url}\n")
 
 # API endpoints to test
